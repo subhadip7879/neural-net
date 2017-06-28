@@ -1,2 +1,2 @@
 # neural-net
-my path and progress to create neural nets
+my path and progress to learn neural networks using tensorflow
