@@ -62,38 +62,22 @@ plot_images(images=images, cls_true=cls_true)
 
 def new_weights(shape):
     return tf.Variable(tf.truncated_normal(shape, stddev=0.05))
+
 def new_biases(length):
     return tf.Variable(tf.constant(0.05, shape=[length]))
-def new_conv_layer(input,              # The previous layer.
-                   num_input_channels, # Num. channels in prev. layer.
-                   filter_size,        # Width and height of each filter.
-                   num_filters,        # Number of filters.
-                   use_pooling=True):
+
+def new_conv_layer(input,num_input_channels, filter_size,num_filters,use_pooling=True):
     
     shape = [filter_size, filter_size, num_input_channels, num_filters]
-
-    
     weights = new_weights(shape=shape)
-
-    
     biases = new_biases(length=num_filters)
-    
-    layer = tf.nn.conv2d(input=input,
-                         filter=weights,
-                         strides=[1, 1, 1, 1],
-                         padding='SAME')
+    layer = tf.nn.conv2d(input=input,filter=weights,strides=[1, 1, 1, 1],padding='SAME')
     
     layer += biases
     
     if use_pooling:
-        
-        layer = tf.nn.max_pool(value=layer,
-                               ksize=[1, 2, 2, 1],
-                               strides=[1, 2, 2, 1],
-                               padding='SAME')
-        
+        layer = tf.nn.max_pool(value=layer, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1],padding='SAME')
         layer = tf.nn.relu(layer)
-        
         return layer, weights
 
 def flatten_layer(layer):
@@ -103,14 +87,9 @@ def flatten_layer(layer):
     return layer_flat, num_features
 
 
-def new_fc_layer(input,          # The previous layer.
-                 num_inputs,     # Num. inputs from prev. layer.
-                 num_outputs,    # Num. outputs.
-                 use_relu=True):
-    
+def new_fc_layer(input, num_inputs,num_outputs,use_relu=True):
     weights = new_weights(shape=[num_inputs, num_outputs])
     biases = new_biases(length=num_outputs)
-    
     layer = tf.matmul(input, weights) + biases
     
     if use_relu:
@@ -123,16 +102,10 @@ x_image = tf.reshape(x, [-1, img_size, img_size, num_channels])
 y_true = tf.placeholder(tf.float32, shape=[None, 10], name='y_true')
 y_true_cls = tf.argmax(y_true, dimension=1)
 
-layer_conv1, weights_conv1 =     new_conv_layer(input=x_image,
-                   num_input_channels=num_channels,
-                   filter_size=filter_size1,
-                   num_filters=num_filters1,
-                   use_pooling=True)
-
-
+layer_conv1, weights_conv1 = new_conv_layer(input=x_image, num_input_channels=num_channels,filter_size=filter_size1, num_filters=num_filters1,use_pooling=True)
 layer_conv1
 
-layer_conv2, weights_conv2 =     new_conv_layer(input=layer_conv1, num_input_channels=num_filters1,filter_size=filter_size2,num_filters=num_filters2,use_pooling=True)
+layer_conv2, weights_conv2 = new_conv_layer(input=layer_conv1, num_input_channels=num_filters1,filter_size=filter_size2,num_filters=num_filters2,use_pooling=True)
 layer_conv2
 
 layer_flat, num_features = flatten_layer(layer_conv2)
@@ -162,11 +135,8 @@ def optimize(num_iterations):
     global total_iterations
     start_time = time.time()
     for i in range(total_iterations, total_iterations + num_iterations):
-    
         x_batch, y_true_batch = data.train.next_batch(train_batch_size)
-
         feed_dict_train = {x: x_batch, y_true: y_true_batch}
-
         session.run(optimizer, feed_dict=feed_dict_train)
 
         if i % 100 == 0:
@@ -188,14 +158,8 @@ def plot_example_errors(cls_pred, correct):
     
 def plot_confusion_matrix(cls_pred):
     cls_true = data.test.cls
-    
-    
     cm = confusion_matrix(y_true=cls_true, y_pred=cls_pred)
-
-    
     print(cm)
-
-    
     plt.matshow(cm)
 
     
@@ -205,8 +169,6 @@ def plot_confusion_matrix(cls_pred):
     plt.yticks(tick_marks, range(num_classes))
     plt.xlabel('Predicted')
     plt.ylabel('True')
-
-    
     plt.show()
 
 test_batch_size = 256
@@ -215,6 +177,7 @@ def print_test_accuracy(show_example_errors=False, show_confusion_matrix=False):
     cls_pred = np.zeros(shape=num_test, dtype=np.int)
     
     i = 0
+
     while i < num_test:
         j = min(i + test_batch_size, num_test)
         images = data.test.images[i:j, :]
@@ -238,17 +201,17 @@ def print_test_accuracy(show_example_errors=False, show_confusion_matrix=False):
         plot_confusion_matrix(cls_pred=cls_pred)
     
 print_test_accuracy()
+
 optimize(num_iterations=1)
 print_test_accuracy()
+
 optimize(num_iterations=99) 
 print_test_accuracy(show_example_errors=True)
 
 optimize(num_iterations=900)
-
 print_test_accuracy(show_example_errors=True)
 
 optimize(num_iterations=9000)
-
 print_test_accuracy(show_example_errors=True, show_confusion_matrix=True)
 
 def plot_conv_weights(weights, input_channel=0):
