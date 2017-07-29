@@ -1,5 +1,6 @@
 from IPython.display import Image
 
+
 Image('images/02_network_flowchart.png')
 Image('images/02_convolution.png')
 
@@ -10,16 +11,23 @@ from sklearn.metrics import confusion_matrix
 import time
 from datetime import timedelta
 import math
+from tensorflow.examples.tutorials.mnist import input_data
 
 tf.__version__
-
+#Convolutional Layer 1.
+# will connect each neuron to only a local region of the input volume 
+# Convolution filters are 5 x 5 pixels.
 filter_size1 = 5          
 num_filters1 = 16 
+
+
+# Convolutional Layer 2.
 filter_size2 = 5          
 num_filters2 = 36  
+
+# Fully-connected layer.
 fc_size = 128  
 
-from tensorflow.examples.tutorials.mnist import input_data
 
 data = input_data.read_data_sets('data/MNIST/', one_hot=True)
 
@@ -31,6 +39,7 @@ print("- Validation-set:\t{}".format(len(data.validation.labels)))
 data.test.cls = np.argmax(data.test.labels, axis=1)
 
 img_size = 28
+# Images are stored in 1d array of this length.
 img_size_flat = img_size * img_size
 img_shape = (img_size, img_size)
 num_channels = 1
@@ -42,7 +51,7 @@ def plot_images(images, cls_true, cls_pred=None):
     fig, axes = plt.subplots(3, 3)
     fig.subplots_adjust(hspace=0.3, wspace=0.3)
     for i, ax in enumerate(axes.flat):
-        
+         # Plot image.
         ax.imshow(images[i].reshape(img_shape), cmap='binary')
         
         if cls_pred is None:
@@ -57,8 +66,10 @@ def plot_images(images, cls_true, cls_pred=None):
     plt.show()
     
 
+# first images from mnist
 images = data.test.images[0:9]
 cls_true = data.test.cls[0:9]
+# Plot the images and labels
 plot_images(images=images, cls_true=cls_true)
 
 def new_weights(shape):
