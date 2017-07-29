@@ -14,5 +14,11 @@ The folder contains a script to classify a house based on number of bathrooms, p
 - [pandas](http://pandas.pydata.org/)
 - [numpy](http://www.numpy.org/)
 
-### Image Classifier
-This is a convolutional neural network which has about 95 - 99% accuracy for [mnist](https://www.tensorflow.org/get_started/mnist/beginners) data set for hand written digits. They work in small filters across the input image and the filters are reused in detecting patterns in the input image because of which the CNNs are quicker to train.The input image is processed in the first convolutional layer using the filter-weights. This results in 16 new images, one for each filter in the convolutional layer.These 16 smaller images are then processed in the second convolutional layer.
+### 3) Image Classifier
+This is a convolutional neural network which has about 95 - 99% accuracy for [mnist](https://www.tensorflow.org/get_started/mnist/beginners) data set for hand written digits. They work in small filters across the input image and the filters are reused in detecting patterns in the input image because of which the CNNs are quicker to train.The input image is processed in the first convolutional layer using the filter-weights. 
+
+This results in 16 new images, one for each filter in the convolutional layer.These 16 smaller images are then processed in the second convolutional layer.We need filter-weights for each of these 16 channels, and we need filter-weights for each output channel of this layer. 
+
+These are then flattened to a single vector of length 7 x 7 x 36 = 1764, which is used as the input to a fully-connected layer with 128 neurons (or elements). This feeds into another fully-connected layer with 10 neurons, one for each of the classes, which is used to determine the class of the image.
+
+The computation in TensorFlow is actually done on a batch of images instead of a single image, which makes the computation more efficient. This means the flowchart actually has one more data-dimension when implemented in TensorFlow.
