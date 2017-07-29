@@ -9,9 +9,8 @@ this script to create a single layer [simple neural network](http://computing.dc
 The folder contains a script to classify a house based on number of bathrooms, price and are as good or bad. The data is tabulated and [pandas](http://pandas.pydata.org/) is the library which helps us in dealing with table like data.After data is tabulated, the features are introduced which allows [Tensorflow](https://www.tensorflow.org/) to begin training process after specifying different like learning rate, training epochs and display step.Since this is a single layer network, the accuracy tends to be around 70% to 80%. the data used for traing and output is also included in the folder. 
 
 #### Dependencies 
-- [matplotlib](https://matplotlib.org/
-)
-- [TensorFlow](ttps://www.tensorflow.org/)
+- [matplotlib](https://matplotlib.org/)
+- [TensorFlow](https://www.tensorflow.org/)
 - [pandas](http://pandas.pydata.org/)
 - [numpy](http://www.numpy.org/)
 
