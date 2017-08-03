@@ -2,7 +2,7 @@
 
 ## The repository has 3 scripts 
 ### 1) Basic-neural-net 
-this script to create a single layer [simple neural network](http://computing.dcu.ie/~humphrys/Notes/Neural/single.neural.html) using [backpropagation](http://neuralnetworksanddeeplearning.com/chap2.html) via gradient descent to train our network and make our prediction as accurate as possible.
+This script to create a single layer [simple neural network](http://computing.dcu.ie/~humphrys/Notes/Neural/single.neural.html) using [backpropagation](http://neuralnetworksanddeeplearning.com/chap2.html) via gradient descent to train our network and make our prediction as accurate as possible.
 #### Dependecies 
 [numpy](http://www.numpy.org/)
 ### 2) House Classifier 
@@ -22,3 +22,25 @@ This results in 16 new images, one for each filter in the convolutional layer.Th
 These are then flattened to a single vector of length 7 x 7 x 36 = 1764, which is used as the input to a fully-connected layer with 128 neurons (or elements). This feeds into another fully-connected layer with 10 neurons, one for each of the classes, which is used to determine the class of the image.
 
 The computation in TensorFlow is actually done on a batch of images instead of a single image, which makes the computation more efficient. This means the flowchart actually has one more data-dimension when implemented in TensorFlow.
+
+## The MNIST dataset
+
+![](http://i.imgur.com/TaJkAHl.png)
+
+### Plotting a few omages to see if the data is correct
+
+![](http://i.imgur.com/FqiAFsN.png?1)
+
+### Performance and accuracy after 100 optimization iterations of training CNN
+
+![](http://i.imgur.com/4HSBgln.png?1)
+
+### Performance and accuracy after 1000 optimization iterations of training CNN
+
+![](http://i.imgur.com/PCATzau.png?1)
+
+### Performance and accuracy after 10000 optimization iterations of training CNN
+
+![](http://i.imgur.com/W16XnRx.png?1)
+
+Suggestions/edits are warmly welcome, and can be given by creating an issue/pull request in this repository.
