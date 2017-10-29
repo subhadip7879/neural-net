@@ -39,8 +39,9 @@ if __name__ == "__main__":
     neural_network.train(training_set_inputs,training_set_outputs,10000)
 
     print ("new synaptic weights after training :")
-    print (neural_network.synamptic_weights)
-
+    print (neural_network.synamptic_weights) #print synamptic weights
 
     print ('predicting:')
     print (neural_network.predict(array([1,0,0])))
+
+    
