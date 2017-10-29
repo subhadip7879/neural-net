@@ -1,5 +1,5 @@
 from numpy import exp, array, random, dot #import required modules
-
+#This is a basic comment
 
 class NeuralNetwork():
     
