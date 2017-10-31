@@ -46,4 +46,4 @@ The computation in TensorFlow is actually done on a batch of images instead of a
 
 ![](http://i.imgur.com/W16XnRx.png?1)
 
-Suggestions/edits are warmly welcome, and can be given by creating an issue/pull request in this repository.
+Suggestions/edits are warmly welcome, and can be given by creating an issue/pull request in this repository..
